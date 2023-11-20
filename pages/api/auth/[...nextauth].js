@@ -17,6 +17,7 @@ export const authOptions = {
   callbacks: {
     session: ({ session, token, user }) => {
       if (session) {
+        console.log(user);
         return session;
       } else {
         return false;
