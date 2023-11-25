@@ -29,27 +29,22 @@ export default function ProductForm({
   const [categories, setCategories] = useState([]);
   const [image, setImage] = useState("");
   const router = useRouter();
-  const loadImage = async (fileName) => {
-    try {
-      const { default: dynamicImage } = await import(
-        `@/public/img/${fileName}`
-      );
-      return dynamicImage.src;
-    } catch (error) {
-      console.error("Error loading image:", error);
-      return null;
-    }
-  };
+  // const loadImage = async (fileName) => {
+  //   try {
+  //     const { default: dynamicImage } = await import(
+  //       `@/public/img/${fileName}`
+  //     );
+  //     return dynamicImage.src;
+  //   } catch (error) {
+  //     console.error("Error loading image:", error);
+  //     return null;
+  //   }
+  // };
 
   useEffect(() => {
     axios.get("/api/categories").then((result) => {
       setCategories(result.data);
     });
-    console.log(
-      loadImage("1700529519542.png").then((imageUrl) =>
-        console.log("Image URL:", imageUrl)
-      )
-    );
   }, []);
   async function saveProduct(ev) {
     ev.preventDefault();
@@ -165,15 +160,15 @@ export default function ProductForm({
                 className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200"
               >
                 {console.log("link", link)}
-                {console.log(loadImage(link))}
+                {/* {console.log(loadImage(link))} */}
                 {/* {const img = import("")} */}
-                <img
+                {/* <img
                   src={"https://i.imgur.com/a6M1uNv.png"}
                   alt=""
                   width={100}
                   height={100}
                   className="rounded-lg"
-                />
+                /> */}
               </div>
             ))}
         </ReactSortable>
