@@ -3,9 +3,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import { ReactSortable } from "react-sortablejs";
-import Img1 from "@/public/img/1700528769934.png";
-import Image from "next/image";
-// import fs from "fs";
 
 export default function ProductForm({
   _id,
@@ -29,17 +26,6 @@ export default function ProductForm({
   const [categories, setCategories] = useState([]);
   const [image, setImage] = useState("");
   const router = useRouter();
-  // const loadImage = async (fileName) => {
-  //   try {
-  //     const { default: dynamicImage } = await import(
-  //       `@/public/img/${fileName}`
-  //     );
-  //     return dynamicImage.src;
-  //   } catch (error) {
-  //     console.error("Error loading image:", error);
-  //     return null;
-  //   }
-  // };
 
   useEffect(() => {
     axios.get("/api/categories").then((result) => {
@@ -74,14 +60,19 @@ export default function ProductForm({
       setIsUploading(true);
       const data = new FormData();
       for (const file of files) {
-        data.append("file", file);
+        data.append("image", file);
       }
-      const res = await axios.post(`/api/upload?=${_id}`, data);
-      setImages((oldImages) => {
-        return [...oldImages, ...res.data.links];
-      });
+      const res = await axios.post(
+        `https://node-backend-v1.onrender.com/api/upload`,
+        data
+      );
+      console.log(res.data.signedUrl);
+      setImage(res.data.signedUrl);
+      setImages([...images, res.data.signedUrl]);
       setIsUploading(false);
     }
+    console.log(images);
+    console.log(`image:${image}`);
   }
   function updateImagesOrder(images) {
     setImages(images);
@@ -153,22 +144,18 @@ export default function ProductForm({
           className="flex flex-wrap gap-1"
           setList={updateImagesOrder}
         >
-          {!!images?.length &&
-            images.map((link) => (
+          {/* {image && (
+            <div className="h-24 bg-white p-1 shadow-sm rounded-sm border border-gray-200">
+              <img src={image} width={100} height={100} alt="Image" />
+            </div>
+          )} */}
+          {!!images.length &&
+            images.map((imageUrl) => (
               <div
-                key={link}
-                className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200"
+                key={imageUrl}
+                className="h-24 bg-white p-1 shadow-sm rounded-sm border border-gray-200"
               >
-                {console.log("link", link)}
-                {/* {console.log(loadImage(link))} */}
-                {/* {const img = import("")} */}
-                {/* <img
-                  src={"https://i.imgur.com/a6M1uNv.png"}
-                  alt=""
-                  width={100}
-                  height={100}
-                  className="rounded-lg"
-                /> */}
+                <img src={imageUrl} alt="Image Url" />
               </div>
             ))}
         </ReactSortable>
