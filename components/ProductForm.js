@@ -61,6 +61,7 @@ export default function ProductForm({
       const data = new FormData();
       for (const file of files) {
         data.append("image", file);
+        data.append("image", file);
       }
       const res = await axios.post(
         `https://node-backend-v1.onrender.com/api/upload`,
@@ -71,6 +72,8 @@ export default function ProductForm({
       setImages([...images, res.data.signedUrl]);
       setIsUploading(false);
     }
+    console.log(images);
+    console.log(`image:${image}`);
     console.log(images);
     console.log(`image:${image}`);
   }
@@ -144,6 +147,18 @@ export default function ProductForm({
           className="flex flex-wrap gap-1"
           setList={updateImagesOrder}
         >
+          {/* {image && (
+            <div className="h-24 bg-white p-1 shadow-sm rounded-sm border border-gray-200">
+              <img src={image} width={100} height={100} alt="Image" />
+            </div>
+          )} */}
+          {!!images.length &&
+            images.map((imageUrl) => (
+              <div
+                key={imageUrl}
+                className="h-24 bg-white p-1 shadow-sm rounded-sm border border-gray-200"
+              >
+                <img src={imageUrl} alt="Image Url" />
           {/* {image && (
             <div className="h-24 bg-white p-1 shadow-sm rounded-sm border border-gray-200">
               <img src={image} width={100} height={100} alt="Image" />
