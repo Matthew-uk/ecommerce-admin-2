@@ -49,7 +49,7 @@ export default function DeleteProductPage() {
     <Layout>
       <h1 className="text-center">
         Do you really want to approve &nbsp;&quot; ₦
-        {productInfo?.withdraw.toLocaleString()}&quot;?
+        {productInfo?.withdraw.toLocaleString()}&quot; withdrawal?
       </h1>
       <div className="flex gap-2 justify-center">
         <button onClick={approveDeposit} className="btn-red">
@@ -59,21 +59,21 @@ export default function DeleteProductPage() {
           NO
         </button>
       </div>
-      {/* {loading ? (
+      {loading ? (
         "Loading"
       ) : (
         <div className="image flex justify-center items-center max-w-sm mt-2">
-          {productInfo && productInfo.proofOfPayment ? (
-            <img
-              className="w-1/2 h-1/2"
-              src={productInfo.proofOfPayment}
-              alt="Proof of Payment"
-            />
+          {productInfo && productInfo ? (
+            <div className=" w-full rounded-md bg-gray-600 text-white p-2">
+              <p>Bank Name: {productInfo.accountName}</p>
+              <p>Account Number: {productInfo.accountNumber}</p>
+              <p>Account Name: {productInfo.bankName}</p>
+            </div>
           ) : (
             <p>No proof of payment available</p>
           )}
         </div>
-      )} */}
+      )}
     </Layout>
   );
 }
