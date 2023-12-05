@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 import Logo from "@/components/Logo";
 import { BsCashCoin } from "react-icons/bs";
+import { FaMoneyCheck } from "react-icons/fa";
 
 export default function Nav({ show }) {
   const inactiveLink = "flex gap-1 p-1";
@@ -123,10 +124,26 @@ export default function Nav({ show }) {
           <BsCashCoin
             size={20}
             className={
-              pathname.includes("/settings") ? activeIcon : inactiveIcon
+              pathname.includes("/investments") ? activeIcon : inactiveIcon
             }
           />
           Investments
+        </Link>
+        <Link
+          href={"/withdraw"}
+          className={
+            pathname.includes("/withdraw")
+              ? activeLink
+              : inactiveLink + "flex items-center justify-start p-1"
+          }
+        >
+          <FaMoneyCheck
+            size={20}
+            className={
+              pathname.includes("/withdraw") ? activeIcon : inactiveIcon
+            }
+          />
+          Withdraw
         </Link>
         <Link
           href={"/settings"}
