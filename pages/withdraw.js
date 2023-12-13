@@ -35,7 +35,7 @@ export default function Products() {
             ? "Loading..."
             : products.map(
                 (product) =>
-                  product.approved === false && (
+                  product.pending === true && (
                     <tr key={product._id}>
                       <td>₦{product.withdraw.toLocaleString()}</td>
                       <td>

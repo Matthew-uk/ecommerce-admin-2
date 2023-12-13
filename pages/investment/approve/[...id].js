@@ -32,11 +32,15 @@ export default function DeleteProductPage() {
   function goBack() {
     router.push("/investments");
   }
-  async function deleteProduct() {
-    await axios.delete(
-      "https://node-backend-v1.onrender.com/api/deposit/one?id=" + id
-    );
-    goBack();
+  async function cancelDeposit() {
+    try {
+      await axios.patch(
+        "https://node-backend-v1.onrender.com/api/deposit/cancel?id=" + id
+      );
+      goBack();
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   async function approveDeposit() {
@@ -48,14 +52,14 @@ export default function DeleteProductPage() {
   return (
     <Layout>
       <h1 className="text-center">
-        Do you really want to approve &nbsp;&quot; ₦
+        Do you really want to approve a deposit of &nbsp;&quot; ₦
         {productInfo?.deposit.toLocaleString()}&quot;?
       </h1>
       <div className="flex gap-2 justify-center">
         <button onClick={approveDeposit} className="btn-red">
           Yes
         </button>
-        <button className="btn-default" onClick={goBack}>
+        <button className="btn-default" onClick={cancelDeposit}>
           NO
         </button>
       </div>

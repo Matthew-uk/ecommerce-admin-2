@@ -32,11 +32,15 @@ export default function DeleteProductPage() {
   function goBack() {
     router.push("/withdraw");
   }
-  async function deleteProduct() {
-    await axios.delete(
-      "https://node-backend-v1.onrender.com/api/withdraw/one?id=" + id
-    );
-    goBack();
+  async function cancelWithdrawal() {
+    try {
+      await axios.patch(
+        "https://node-backend-v1.onrender.com/api/withdraw/cancel?id=" + id
+      );
+      goBack();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function approveDeposit() {
@@ -55,8 +59,8 @@ export default function DeleteProductPage() {
         <button onClick={approveDeposit} className="btn-red">
           Yes
         </button>
-        <button className="btn-default" onClick={goBack}>
-          NO
+        <button className="btn-default" onClick={cancelWithdrawal}>
+          No
         </button>
       </div>
       {loading ? (

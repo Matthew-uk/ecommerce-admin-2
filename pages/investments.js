@@ -35,7 +35,7 @@ export default function Products() {
             ? "Loading..."
             : products.map(
                 (product) =>
-                  product.approved === false && (
+                  product.pending === true && (
                     <tr key={product._id}>
                       <td>₦{product.deposit.toLocaleString()}</td>
                       <td>
@@ -44,7 +44,7 @@ export default function Products() {
                           href={"/investment/approve/" + product._id}
                         >
                           <MdVerified />
-                          Approve
+                          Check
                         </Link>
                       </td>
                     </tr>

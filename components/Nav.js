@@ -13,7 +13,7 @@ export default function Nav({ show }) {
   const router = useRouter();
   const { pathname } = router;
   async function logout() {
-    await router.push("/");
+    await router.push("https://twinkas-admin-panel.vercel.app/login");
     await signOut();
   }
   return (
